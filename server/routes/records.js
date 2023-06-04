@@ -58,7 +58,7 @@ router.get('/:id', getRecord, (req, res) => {
 });
 
 // CREATE a new record
-router.post('/', upload.array('image',2), async (req, res) => {
+router.post('/', upload.array('images',2), async (req, res) => {
   const { title, description } = req.body;
   let imageData=[];
   const images = req.files.map((file) =>({data:file.filename, contentType:"image/jpg"}));

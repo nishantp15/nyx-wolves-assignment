@@ -25,7 +25,7 @@ function App() {
 
   const fetchRecords = async () => {
     try {
-      const response = await axios.get('/records');
+      const response = await axios.get('https://wolves-k2v8.onrender.com/api/records');
       setRecords(response.data);
     } catch (error) {
       console.log(error);
@@ -46,7 +46,7 @@ function App() {
         formData.append('images', image);
       });
 
-      await axios.post('/records', formData, {
+      await axios.post('https://wolves-k2v8.onrender.com/api/records', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
