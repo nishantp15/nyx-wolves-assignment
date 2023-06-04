@@ -26,6 +26,7 @@ function App() {
   const fetchRecords = async () => {
     try {
       const response = await axios.get('https://wolves-k2v8.onrender.com/api/records');
+      console.log(response.data)
       setRecords(response.data);
     } catch (error) {
       console.log(error);
@@ -46,12 +47,14 @@ function App() {
         formData.append('images', image);
       });
 
-      await axios.post('https://wolves-k2v8.onrender.com/api/records', formData, {
+      const x = await axios.post('https://wolves-k2v8.onrender.com/api/records', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-
+      // const val = await x.status();
+      // console.log(val)
+      console.log(5)
       // Clear form data
       setTitle('');
       setDescription('');
@@ -62,6 +65,16 @@ function App() {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  let arrayBufferToBase64 = buffer => {
+    let binary = '';
+    let bytes = new Uint8Array(buffer);
+    let len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
   };
 
   return (
@@ -131,12 +144,8 @@ function App() {
                     <p>{record.description}</p>
                     <div>
                       {record.images.map((image, index) => (
-                        <img
-                          key={index}
-                          src={`http://localhost:5000/uploads/${image}`}
-                          alt=""
-                          style={{ width: '100%', marginBottom:'1rem' }}
-                        />
+                        JSON.stringify(arrayBufferToBase64(image.data.data))
+                        
                       ))}
                     </div>
                   </CardContent>
